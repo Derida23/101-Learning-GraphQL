@@ -4,7 +4,8 @@ const schema = require('./schema/schema')
 const app = express();
 
 app.use('/graphql', graphqlHTPP({
-schema
+schema,
+graphiql : true
 })); //memberikan route
 
 app.listen(4040, () => {
