@@ -103,13 +103,26 @@ const RootQuery = new GraphQLObjectType({
       }
     },
     mahasiswa: {
-        type: MahasiswaType,
-        args: { id: { type: GraphQLID }},
-        resolve(parent,args) {
-            return _.find(data_mahasiswa, { id: args.id});
-        }
+      type: MahasiswaType,
+      args: { id: { type: GraphQLID }},
+      resolve(parent,args) {
+          return _.find(data_mahasiswa, { id: args.id});
+      }
+    },
+    read_mahasiswa: {
+      type: new GraphQLList(MahasiswaType),
+      resolve(parent, args){
+        return data_mahasiswa
+      }
+    },
+    read_jurusan: {
+      type: new GraphQLList(JurusanType),
+      resolve(parent, args){
+        return jurusanx
+      }
     }
   }
+
 });
 
 module.exports = new GraphQLSchema({
