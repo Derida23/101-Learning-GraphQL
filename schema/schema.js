@@ -71,7 +71,9 @@ const JurusanType = new GraphQLObjectType({
     mahasiswa: {
         type: new GraphQLList(MahasiswaType),
         resolve(parent, args){
-            // return _.filter(data_mahasiswa, {jurusanid: parent.id}); //mengembalikan dataDummy
+          return Mahasiswa.find({
+            jurusanid: parent.id
+          })
         }
     }
   })
@@ -86,7 +88,7 @@ const MahasiswaType = new GraphQLObjectType({
     prodi: {
         type: JurusanType,
         resolve(parent, args){
-            // return _.find(jurusanx, {id: parent.jurusanid}); //mengembalikan dataDummy
+          return Jurusan.findById(parent.jurusanid)
         }
     }
   })
@@ -101,26 +103,26 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         //tempat mengambil data dari database
-        // return _.find(jurusanx, { id: args.id }); //mengembalikan dataDummy
+        return Jurusan.findById(args.id)
       }
     },
     mahasiswa: {
       type: MahasiswaType,
       args: { id: { type: GraphQLID }},
       resolve(parent,args) {
-          // return _.find(data_mahasiswa, { id: args.id}); //mengembalikan dataDummy
+        return Mahasiswa.findById(args.id);
       }
     },
     read_mahasiswa: {
       type: new GraphQLList(MahasiswaType),
       resolve(parent, args){
-        // return data_mahasiswa //mengembalikan dataDummy
+        return Mahasiswa.find({})
       }
     },
     read_jurusan: {
       type: new GraphQLList(JurusanType),
       resolve(parent, args){
-        // return jurusanx //mengembalikan dataDummy
+        return Jurusan.find({});
       }
     }
   }
